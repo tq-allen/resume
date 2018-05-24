@@ -1,0 +1,51 @@
+*{margin: 0; padding: 0; box-sizing: border-box; outline: none;}
+body{font: 18px/1.5 "microsoft yahei";}
+ul{list-style: none;}
+a{text-decoration: none; color: inherit;}
+button,input[type=submit]{cursor: pointer; font-size: inherit;}
+div[v-cloak]{display: none;}
+
+.icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+
+.page{
+	display: flex;
+	height: 100vh;
+	overflow: hidden;
+}
+.page > aside{
+	width: 100px;
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: #272930;
+	text-align: center;
+	padding: 10px 0;
+}
+.page > aside button{
+	border: none;
+	background: transparent;
+	color: rgba(255,255,255,.5);
+	width: 100%;
+	padding: 10px 0;
+	cursor: pointer;
+	transition: all .3s;
+}
+.page > aside button svg{
+	margin-right: 5px;
+}
+.page > aside button:hover{
+	background: #1E2025;
+	color: #fff;
+}
+.page > main{
+	flex-grow: 1;
+	overflow: auto;
+	padding-bottom: 30px;
+}
+

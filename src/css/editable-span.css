@@ -1,0 +1,28 @@
+.editable-span {
+	position: relative;
+}
+.editable-span input[type=text]{
+	max-width: 300px;
+	border: 1px solid #333;
+	border-radius: 3px; 
+	padding: 2px 4px;
+}
+.editable-span button {
+	font-size: 16px;
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translateY(-50%);
+	z-index: 1;
+	background: #1EA698;
+	color: #fff;
+	border-radius: 2px;
+	padding: 2px 10px;
+	border: none;
+	box-shadow: 0 0 2px 0 rgba(29, 166, 152, .2);
+}
+
+.editable-span:hover button {
+	display: block;
+}
