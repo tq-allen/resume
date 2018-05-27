@@ -1,0 +1,9 @@
+.page > aside,
+.resume .del,
+.resume .add{
+	display: none;
+}
+.page main{
+	margin-left: 0;
+	padding: 0 30px;
+}

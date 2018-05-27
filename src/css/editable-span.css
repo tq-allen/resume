@@ -3,9 +3,15 @@
 }
 .editable-span input[type=text]{
 	max-width: 300px;
-	border: 1px solid #333;
+	border: 1px solid #ccc;
 	border-radius: 3px; 
-	padding: 2px 4px;
+	padding: 10px;
+	font-size: inherit;
+	font-family: inherit;
+	
+}
+.editable-span input[type=text]:focus{
+	border-color: #007BFF;
 }
 .editable-span button {
 	font-size: 16px;
@@ -18,7 +24,7 @@
 	background: #1EA698;
 	color: #fff;
 	border-radius: 2px;
-	padding: 2px 10px;
+	padding: 4px 10px;
 	border: none;
 	box-shadow: 0 0 2px 0 rgba(29, 166, 152, .2);
 }

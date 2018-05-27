@@ -6,15 +6,18 @@
 		<title>在线简历编辑</title>
 		
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
-		<link rel="stylesheet" type="text/css" href="css/resume.css"/>
+		<link rel="stylesheet" type="text/css" href="css/theme/default.css"/>
+		<link rel="stylesheet" type="text/css" href="css/theme/black.css"/>
+		<link rel="stylesheet" type="text/css" href="css/theme/pink.css"/>
 		<link rel="stylesheet" type="text/css" href="css/editable-span.css"/>
 		<link rel="stylesheet" type="text/css" href="css/login.css"/>
 		<link rel="stylesheet" type="text/css" href="css/signUp.css"/>
 		<link rel="stylesheet" type="text/css" href="css/share.css"/>
+		<link rel="stylesheet" type="text/css" href="css/print.css" media="print"/>
+		<link rel="stylesheet" type="text/css" href="css/theme-picker.css"/>
 	</head>
-
 	<body>
-		<div id="app" class="page">
+		<div id="app" class="page" :class="{preview: mode === 'preview'}">
 			<aside v-show="mode === 'edit'">
 				<ul>
 					<li>
@@ -25,21 +28,21 @@
 						</button>
 					</li>
 					<li>
-						<button type="button" @click="shareVisible = true">
+						<button type="button" @click="share">
 							<svg class="icon">
 							    <use xlink:href="#icon-share"></use>
 							</svg>分享
 						</button>
 					</li>
 					<li>
-						<button type="button">
+						<button type="button" @click="print">
 							<svg class="icon">
 							    <use xlink:href="#icon-print"></use>
 							</svg>打印
 						</button>
 					</li>
 					<li>
-						<button type="button">
+						<button type="button" @click="themePicker">
 							<svg class="icon">
 							    <use xlink:href="#icon-changeskin"></use>
 							</svg>换肤
@@ -52,7 +55,7 @@
 					</svg>登出
 				</button>
 			</aside>
-			<main>
+			<main :class="displayResume.theme">
 				<div class="resume">
 					<section class="profile">
 						<h1>	
@@ -118,50 +121,20 @@
 				</div>
 			</main>
 			
-			<div class="login" v-show="loginVisible" v-cloak>
-				<form class="form" @submit.prevent="onLogin">
-					<h2>登录</h2>
-					<button type="button" @click="loginVisible = false">关闭</button>
-					<div class="row">
-						<lable>邮箱</lable>
-						<input type="text" v-model="login.email" />
-					</div>
-					<div class="row">
-						<lable>密码</lable>
-						<input type="password" v-model="login.password" />
-					</div>
-					<button type="submit">提交</button>
-					<a href="#" @click="signUpVisible=true; loginVisible=false">注册</a>
-				</form>				
-			</div>
-			<div class="signUp" v-show="signUpVisible" v-cloak>
-				<form class="form" @submit.prevent="onSignUp">
-					<h2>注册</h2>
-					<button type="button" @click="signUpVisible = false">关闭</button>
-					<div class="row">
-						<lable>邮箱</lable>
-						<input type="text" v-model="signUp.email" />
-					</div>
-					<div class="row">
-						<lable>密码</lable>
-						<input type="password" v-model="signUp.password" />
-					</div>
-					<button type="submit">提交</button>
-					<a href="#" @click="signUpVisible=false; loginVisible=true">登录</a>
-				</form>				
-			</div>
-			<div class="share" v-show="shareVisible" v-cloak>
-				<div class="share-con">	
-					<h3>请将下面链接分享给面试官</h3>
-					<textarea readonly>{{shareLink}}</textarea>
-				</div>
-			</div>
+			<login v-show="loginVisible" @go-to-sign-up="loginVisible = false; signUpVisible = true" @close="loginVisible = false" @login="onLogin"></login>
+			<sign-up v-show="signUpVisible" @go-to-login="loginVisible = true; signUpVisible=false" @close="signUpVisible=false" @sign-up="onSignUp"></sign-up>
+			<share v-show="shareVisible" v-bind:share-link="shareLink" @close="shareVisible=false"></share>
+			<theme-picker v-show="themePickerVisible" @save-theme="savaTheme" @close="themePickerVisible=false"></theme-picker>
 		</div>
 		<script src="../vendors/av-min.js"></script>
 		<script src="js/av.js"></script>
-		<script src="//at.alicdn.com/t/font_678098_jbtx44xi72bxd2t9.js"></script>
+		<script src="//at.alicdn.com/t/font_678098_qyyog7jml1munmi.js"></script>
 		<script src="../vendors/vue.min.js"></script>
 		<script src="js/editable-span.js"></script>
+		<script type="text/javascript" src="js/login.js" ></script>
+		<script type="text/javascript" src="js/sign-up.js" ></script>
+		<script type="text/javascript" src="js/share.js" ></script>
+		<script type="text/javascript" src="js/theme-picker.js" ></script>
 		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 

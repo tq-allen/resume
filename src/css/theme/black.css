@@ -1,0 +1,88 @@
+.black{
+	background: #000;
+	color: #fff;
+}
+.black .resume {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.black .resume>section>h1,
+.black .resume>section>h2 {
+	text-align: center;
+	margin: 30px 0;
+	font-size: 20px;
+}
+
+.black .resume .profile .info,
+.black .resume .profile .job {
+	text-align: center;
+}
+
+.black .resume .skills {}
+
+.black .resume .skills ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.black .resume .skills ul li {
+	width: 49%;
+	padding: 10px;
+	border-radius: 10px;
+	color: #fff;
+	margin: 10px 0;
+	border: 1px solid #ddd;
+	position: relative;
+}
+.black .resume .del{
+	position: absolute;
+	top: 4px;
+	right: 8px;
+	cursor: pointer;
+	width: 20px;
+	height: 
+}
+.black .resume .add{
+	text-align: center;
+	margin: 10px 0;
+}
+.black .resume .add button{
+	border: 1px solid #7F7F7F;
+	border-radius: 4px;
+	padding: 4px 10px;
+	background: #000;
+	font-size: 18px;
+	transition: all .1s;
+	color: #fff;
+}
+.black .resume .add button:hover{
+	transform: scale(1.1)
+}
+
+.black .resume .projects ul {}
+
+.black .resume .projects ul li {
+	margin: 20px 0;
+	position: relative;
+	padding: 20px 15px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.black .resume .projects ul li header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.black .resume .projects ul li header div {
+	display: flex;
+	align-items: center;
+}
+
+.black .resume .projects ul li header div h3 {
+	font-size: 17px;
+	margin-right: 1em;
+}
