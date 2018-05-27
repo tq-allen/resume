@@ -3,7 +3,7 @@ body{font: 18px/1.5 "microsoft yahei";}
 ul{list-style: none;}
 a{text-decoration: none; color: inherit;}
 button,input[type=submit]{cursor: pointer; font-size: inherit;}
-div[v-cloak]{display: none;}
+div[v-cloak]{display: none !important;}
 
 .icon {
    width: 1em; height: 1em;

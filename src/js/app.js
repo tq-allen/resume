@@ -30,9 +30,6 @@ var app = new Vue({
 			objectId: undefined,
 			email: undefined
 		},
-		previewUser: {
-			objectId: undefined
-		},
 		previewResume: {
 			name: '姓名',
 			gender: '女',
@@ -51,6 +48,9 @@ var app = new Vue({
 				{name: '请填写项目名称', link: 'http://...', keywords: '请填写关键词', description: '请填写项目描述'}
 			],
 			theme: 'default'
+		},
+		previewUser: {
+			objectId: undefined
 		},
 		mode: 'edit' //preview
 	},
@@ -72,7 +72,9 @@ var app = new Vue({
 		}
 	},
 	methods: {
-		onEdit(key, value) {
+		onEdit(items) {
+			var key = items[0]
+			var value = items[1]
 			let reg = /\[(\d+)\]/
 			key = key.replace(reg, (match, number)=> `.${number}`)
 			keys = key.split('.')
@@ -91,8 +93,7 @@ var app = new Vue({
 				//保存简历
 				this.saveResume()
 			} else {
-				//去登陆
-				this.loginVisible = true
+				alert('请先登录')
 			}
 		},
 		saveResume() { //保存简历
@@ -139,26 +140,20 @@ var app = new Vue({
 				// 异常处理
 			});
 		},
-		addSkill(){
-			console.log(this.resume)
-			this.resume.skills.push({name: '请填写技能名称', description: '请填写技能介绍'})
-		},
-		delSkill(index){
-			this.resume.skills.splice(index,1)
-		},
-		addProject(){
-			this.resume.projects.push(
-				{name: '请填写项目名称', link: 'http://...', keywords: '请填写关键词', description: '请填写项目描述'}
-			)
-		},
-		delProject(index){
-			this.resume.projects.splice(index,1)
-		},
 		print(){
-			window.print()
+			if(this.currentUser.objectId){
+				window.print()
+			}else{
+				alert('请先登录')
+			}
 		},
 		themePicker(){
-			this.themePickerVisible = true
+			if(this.currentUser.objectId){
+				this.themePickerVisible = true
+			}else{
+				alert('请先登录')
+			}
+			
 		},
 		share(){
 			if(this.currentUser.objectId){
@@ -169,8 +164,20 @@ var app = new Vue({
 		},
 		savaTheme(themeName){
 			this.resume.theme = themeName
+		},
+		add(items){
+			console.log(items)
+			if(items === 'skills'){
+				this.resume[items].push({name: '请填写技能名称', description: '请填写技能介绍'})
+			}else if(items === 'projects'){
+				this.resume[items].push(
+					{name: '请填写项目名称', link: 'http://...', keywords: '请填写关键词', description: '请填写项目描述'}
+				)
+			}
+		},
+		del(items){
+			this.resume[items[0]].splice(items[1], 1)
 		}
-		
 	}
 })
 

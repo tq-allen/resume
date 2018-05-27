@@ -17,124 +17,42 @@
 		<link rel="stylesheet" type="text/css" href="css/theme-picker.css"/>
 	</head>
 	<body>
-		<div id="app" class="page" :class="{preview: mode === 'preview'}">
-			<aside v-show="mode === 'edit'">
-				<ul>
-					<li>
-						<button type="button" @click="onClickSave">
-							<svg class="icon">
-							    <use xlink:href="#icon-save"></use>
-							</svg>保存
-						</button>
-					</li>
-					<li>
-						<button type="button" @click="share">
-							<svg class="icon">
-							    <use xlink:href="#icon-share"></use>
-							</svg>分享
-						</button>
-					</li>
-					<li>
-						<button type="button" @click="print">
-							<svg class="icon">
-							    <use xlink:href="#icon-print"></use>
-							</svg>打印
-						</button>
-					</li>
-					<li>
-						<button type="button" @click="themePicker">
-							<svg class="icon">
-							    <use xlink:href="#icon-changeskin"></use>
-							</svg>换肤
-						</button>
-					</li>
-				</ul>
-				<button type="button" @click="logOut" v-show="!!currentUser.objectId">
-					<svg class="icon">
-					    <use xlink:href="#icon-logout"></use>
-					</svg>登出
-				</button>
-			</aside>
+		<div id="app" class="page" :class="{preview: mode === 'preview'}" v-cloak>
+			<app-aside 
+				v-show="mode === 'edit'" 
+				:logout-visible="!!currentUser.objectId"
+				@save="onClickSave"
+				@share="share"
+				@print="print"
+				@change-theme="themePicker"
+				@login="loginVisible=true"
+				@signup="signUpVisible=true"
+				@logout="logOut"></app-aside>
 			<main :class="displayResume.theme">
-				<div class="resume">
-					<section class="profile">
-						<h1>	
-							<editable-span :disabled="mode === 'preview'" v-bind:value="displayResume.name" v-on:edit="onEdit('name', $event)"></editable-span>
-						</h1>
-						<p class="job">应聘职位 : <editable-span :disabled="mode === 'preview'" v-bind:value="displayResume.job" v-on:edit="onEdit('job', $event)"></editable-span></p>
-						<p class="info">
-							<editable-span :disabled="mode === 'preview'" v-bind:value="displayResume.birthday" v-on:edit="onEdit('birthday', $event)"></editable-span>
-							|
-							<editable-span :disabled="mode === 'preview'" v-bind:value="displayResume.gender" v-on:edit="onEdit('gender', $event)"></editable-span>
-							|
-							<editable-span :disabled="mode === 'preview'" v-bind:value="displayResume.email" v-on:edit="onEdit('email', $event)"></editable-span>
-							|
-							<editable-span :disabled="mode === 'preview'" v-bind:value="displayResume.phone" v-on:edit="onEdit('phone', $event)"></editable-span>
-						</p>
-					</section>
-					<section class="skills">
-						<h2>技能</h2>
-						<ul>
-							<li v-for="skill,index in displayResume.skills">
-								<editable-span :disabled="mode === 'preview'" v-bind:value="skill.name" v-on:edit="onEdit(`skills[${index}].name`, $event)"></editable-span>
-								<p>
-									<editable-span :disabled="mode === 'preview'" :value="skill.description" @edit="onEdit(`skills[${index}].description`, $event)"></editable-span>
-								</p>
-								<span class="del" v-if="index>3 && mode === 'edit'" @click="delSkill(index)">
-									<svg class="icon">
-										<use xlink:href="#icon-close"></use>
-									</svg>
-								</span>
-							</li>
-						</ul>
-						<div class="add" v-if="mode === 'edit'"><button type="button" @click="addSkill">添加技能</button></div>
-					</section>
-					<section class="projects">
-						<h2>项目介绍</h2>
-						<ul>
-							<li v-for="project,index in displayResume.projects">
-								<header>
-									<div>
-										<h3 class="name">
-											<editable-span :disabled="mode === 'preview'" :value="project.name" @edit="onEdit(`projects[${index}].name`, $event)"></editable-span>
-										</h3>
-										<a class="link" :href="project.link">
-											<editable-span :disabled="mode === 'preview'" :value="project.link" @edit="onEdit(`projects[${index}].link`, $event)"></editable-span>
-										</a>
-									</div>	
-									<span class="keywords">
-										<editable-span :disabled="mode === 'preview'" :value="project.keywords" @edit="onEdit(`projects[${index}].keywords`, $event)"></editable-span>
-									</span>
-								</header>
-								<p class="description">
-									<editable-span :disabled="mode === 'preview'" :value="project.description" @edit="onEdit(`projects[${index}].description`, $event)"></editable-span>
-								</p>
-								<span class="del" @click="delProject(index)" v-if="index>1 && mode === 'edit'">
-									<svg class="icon">
-										<use xlink:href="#icon-close"></use>
-									</svg>
-								</span>
-							</li>
-						</ul>
-						<div class="add" v-if="mode === 'edit'"><button @click="addProject">添加项目</button></div>
-					</section>
-				</div>
+				<resume 
+					:mode="mode" 
+					:display-resume="displayResume"
+					@add="add($event)"
+					@del="del($event)"
+					@edit="onEdit($event)"></resume>
 			</main>
 			
 			<login v-show="loginVisible" @go-to-sign-up="loginVisible = false; signUpVisible = true" @close="loginVisible = false" @login="onLogin"></login>
 			<sign-up v-show="signUpVisible" @go-to-login="loginVisible = true; signUpVisible=false" @close="signUpVisible=false" @sign-up="onSignUp"></sign-up>
 			<share v-show="shareVisible" v-bind:share-link="shareLink" @close="shareVisible=false"></share>
-			<theme-picker v-show="themePickerVisible" @save-theme="savaTheme" @close="themePickerVisible=false"></theme-picker>
+			<theme-picker v-show="themePickerVisible" @save-theme="savaTheme" @close="themePickerVisible=false" :theme="displayResume.theme"></theme-picker>
 		</div>
 		<script src="../vendors/av-min.js"></script>
 		<script src="js/av.js"></script>
-		<script src="//at.alicdn.com/t/font_678098_qyyog7jml1munmi.js"></script>
+		<script src="//at.alicdn.com/t/font_678098_0i2uud6wjs40wwmi.js"></script>
 		<script src="../vendors/vue.min.js"></script>
 		<script src="js/editable-span.js"></script>
 		<script type="text/javascript" src="js/login.js" ></script>
 		<script type="text/javascript" src="js/sign-up.js" ></script>
 		<script type="text/javascript" src="js/share.js" ></script>
 		<script type="text/javascript" src="js/theme-picker.js" ></script>
+		<script type="text/javascript" src="js/resume.js" ></script>
+		<script type="text/javascript" src="js/app-aside.js" ></script>
 		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
