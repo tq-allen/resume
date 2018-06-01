@@ -73,7 +73,6 @@
 	align-items: center;
 	justify-content: space-between;
 }
-
 .default .resume .projects ul li header div {
 	display: flex;
 	align-items: center;
@@ -82,4 +81,7 @@
 .default .resume .projects ul li header div h3 {
 	font-size: 17px;
 	margin-right: 1em;
+}
+.default .link .editable-span span{
+	cursor: pointer;
 }

@@ -27,6 +27,7 @@
 	padding: 4px 10px;
 	border: none;
 	box-shadow: 0 0 2px 0 rgba(29, 166, 152, .2);
+	z-index: 2;
 }
 
 .editable-span:hover button {

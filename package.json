@@ -19,6 +19,8 @@
   "homepage": "https://github.com/tq-allen/blog#readme",
   "dependencies": {
     "leancloud-storage": "^3.6.8",
-    "vue": "^2.5.16"
+    "sweetalert": "^2.1.0",
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1"
   }
 }

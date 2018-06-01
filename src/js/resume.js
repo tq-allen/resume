@@ -47,8 +47,8 @@ Vue.component('resume',{
 								<h3 class="name">
 									<editable-span :disabled="mode === 'preview'" :value="project.name" @edit="$emit('edit',['projects['+index+'].name', $event])"></editable-span>
 								</h3>
-								<a class="link" :href="project.link">
-									<editable-span :disabled="mode === 'preview'" :value="project.link" @edit="$emit('edit',['projects['+index+'].link', $event])"></editable-span>
+								<a class="link">
+									<editable-span :disabled="mode === 'preview'" @open="previewProjects" :value="project.link" @edit="$emit('edit',['projects['+index+'].link', $event])"></editable-span>
 								</a>
 							</div>	
 							<span class="keywords">
@@ -68,5 +68,12 @@ Vue.component('resume',{
 				<div class="add" v-if="mode === 'edit'"><button @click="$emit('add','projects')">添加项目</button></div>
 			</section>
 		</div>
-	`
+	`,
+	methods: {
+		previewProjects(){
+			let projectLinkBtn = document.querySelector('.link .editable-span span')
+			let projectLink = document.querySelector('.link .editable-span input')
+			window.open(projectLink.value, '_blank')
+		}
+	}
 })

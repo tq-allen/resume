@@ -93,7 +93,7 @@ var app = new Vue({
 				//保存简历
 				this.saveResume()
 			} else {
-				alert('请先登录')
+				swal('请先登录')
 			}
 		},
 		saveResume() { //保存简历
@@ -105,9 +105,9 @@ var app = new Vue({
 			console.log(this.resume)
 			// 保存到云端
 			user.save().then(()=>{
-				alert('保存成功')
+				swal('保存成功')
 			},()=>{
-				alert('保存失败')
+				swal('保存失败')
 			})
 		},
 		onLogin(user) { //登录
@@ -119,12 +119,11 @@ var app = new Vue({
 			this.signUpVisible = false
 			this.currentUser.objectId = user.objectId
 			this.currentUser.email = user.email
-			alert('注册成功')
+			swal('注册成功')
 			console.log('signup successful')
 		},
 		logOut() {
 			AV.User.logOut()
-			alert('注销成功')
 			window.location.reload()
 		},
 		getResume(user) {
@@ -144,14 +143,14 @@ var app = new Vue({
 			if(this.currentUser.objectId){
 				window.print()
 			}else{
-				alert('请先登录')
+				swal('请先登录')
 			}
 		},
 		themePicker(){
 			if(this.currentUser.objectId){
 				this.themePickerVisible = true
 			}else{
-				alert('请先登录')
+				swal('请先登录')
 			}
 			
 		},
@@ -159,7 +158,7 @@ var app = new Vue({
 			if(this.currentUser.objectId){
 				this.shareVisible = true
 			}else{
-				alert('请先登录')
+				swal('请先登录')
 			}
 		},
 		savaTheme(themeName){
@@ -205,4 +204,3 @@ if(matchs){
 		app.previewResume = resume
 	})
 }
-
